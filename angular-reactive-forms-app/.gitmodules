@@ -1,0 +1,3 @@
+[submodule "AngularProject"]
+	path = AngularProject
+	url = https://github.com/vsnm/AngularProject.git

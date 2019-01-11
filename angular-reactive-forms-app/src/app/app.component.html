@@ -1,0 +1,7 @@
+<hello1 name="{{ name }}"></hello1>
+<p>
+  Start editing to see some magic happen :)
+</p>
+<p>My frist {{type}} app
+<hello1></hello1><div>{{pageHeader ? pageHeader : commonHeader}}</div> {{getFullName()}}<my-employee></my-employee>
+  <button [disabled]='isDisabled' class="basicBtn" [class]='actionBtn'>Attribute binding</button><br/><br/> <button class="boldClass blueActionBtn" [class.boldClass]='applyBoldClass' >Click here</button><div bind-innerHTML='commonHeader'></div><br/><br/><button class="basicBtn" [ngClass]="addClasses()" >NG directive Class binding here</button><div innerHTML={{badHTML}}>{{badHTML}}</div> <div><button style="color:red" [style.font-weight]="isBold ? 'bold' : 'normal'">Style Binding</button></div><div><button style="color:blue" [style.font-size.px]="fontSize">Style Binding for font size</button></div><div><button style="color:green" [ngStyle]="addStyles()">NG Style Binding </button></div><div><button (click)="callClickFunc()">Event Bindingcccc </button></div>

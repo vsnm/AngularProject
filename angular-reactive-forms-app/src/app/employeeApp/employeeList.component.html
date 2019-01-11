@@ -1,0 +1,45 @@
+<h3>Use of ng driective *ngIf and *ngFor</h3>
+
+<h3>Use of pipes and custom pipes and data from conatiner component to nested component</h3>
+
+<h3>Use of input decorator from parent container  to child component and Output Decorator from child to parent container</h3>
+
+<employee-count [all]="getTotalEmployeeCount()" [male]="getTotalMaleEmployeeCount()" [female]="  getTotalFemaleEmployeeCount()" (countRadiobuttonSelectionChange)= "onEmpCountRadioBtnChange($event)"></employee-count>
+<table>
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Designation</td>
+    <td>Code</td>
+    <td>Date of Joining</td>
+    <td>Annual Salary</td>
+    <td>Gender</td>
+    <td>Item Last</td>
+    
+    <td>Item Even</td>
+    <td>Item Odd</td>
+  </tr>
+  </thead>
+  <tbody >
+    <ng-container  *ngFor="let employee of employees;" >
+<tr *ngIf="selectedEmpCountRadioBtn== 'All' || selectedEmpCountRadioBtn==employee.gender">
+
+    <td>{{employee.empName | uppercase  | customTitlePipe:employee.gender}}</td> 
+     <td>{{employee.designation}}</td> 
+      <td>{{employee.code}}</td> 
+       <td>{{employee.dateofJoining|date:"fullDate" | uppercase}}</td> 
+       <td>{{employee.annualSalary | currency:'USD':true:'1.2-3'}}</td> 
+       <td>{{employee.gender}}</td> 
+       <td>{{isLast}}</td> 
+        <td>{{isEven}}</td> 
+       <td>{{isOdd}}</td> 
+  </tr> 
+  </ng-container>
+  <tr *ngIf="!employees || employees.length==0" >
+    <td colspan="5">No Records to display</td> 
+  </tr>
+  </tbody>
+</table>
+
+<br/><br/>
+<button (click)="getAllEmployees()">Show All Employees</button>
