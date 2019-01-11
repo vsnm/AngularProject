@@ -1,0 +1,69 @@
+
+<h4  *ngIf="languages.length==0">Loading...</h4>
+<div class="container" *ngIf="languages.length>0">
+	<p>
+		Angualr 2 Forms
+	</p>
+	<form #form="ngForm" novalidate="true" (submit)="submitForm(form)" >
+		<div class="form-group">
+			<label for="firstName">First name (Add error on condition)</label>
+			<input #firstName="ngModel" minlength="3" type="text" id="firstName" class="form-control" required="required" placeholder="First Name" name="firstName" [ngModel]= 'models.firstName' (ngModelChange)="models.firstName=$event">
+			<h4>Properties Name {{firstName.invalid}}</h4>
+			<div *ngIf="firstName.invalid && firstName.dirty" class="alert alert-danger">
+				First Name is invalid
+			</div>
+		</div>
+		<div class="form-group" [class.has-error]="lastName.invalid && lastName.dirty">
+			<label class="control-label" for="lastName">Last name (Add error class on condition)</label>
+			<input #lastName="ngModel" pattern="...+" type="text" id="lastName" class="form-control" required="required" placeholder="Last Name" name="lastName" [ngModel]="models.lastname" (ngModelChange)="lastNametoUpperCase($event)">
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="productType"[(ngModel)]="models.isFullTime"> Stationery Product
+			</label>
+		</div>
+		<label>Product Sub Type</label>
+		<div class="radio">
+			<label>
+				<input type="radio" name="productSubType"  checked ngModel value="Pen" [(ngModel)]="models.productSubType"> Pen
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" name="productSubType" ngModel value="Pencil"  [(ngModel)]="models.productSubType"> Pencil
+			</label>
+		</div>
+			<div class="form-group" [class.has-error]="hasPrimaryLanguageError">
+			<label  class="control-label">Primary Language</label>
+			<select class="form-control" name="primaryLanguages" 
+			(blur)="validatePrimaryLanguage($event)"
+			[(ngModel)]="models.primaryLanguages">
+				<option value="default">Select language</option>
+				<option *ngFor="let lang of languages">{{lang}}</option>
+			</select>
+		</div>
+		<div class="col-xs-12 col-12 col-md-4 form-group">
+			<label  class="control-label">Date</label>
+		   <input type="text"
+            class="form-control"
+            [minDate]="minDate"
+            [maxDate]="maxDate"
+            #dp="bsDatepicker"
+            bsDatepicker name="bsValue" [(ngModel)]="bsValue" >
+ 		</div>
+
+ 		<div class="col-xs-12 col-12 col-md-4 form-group">
+ 			<label  class="control-label">Date Range</label>
+    		<input class="form-control" name="bsDaterangepicker" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue">
+  		</div>
+  		<timepicker name="mytime" [(ngModel)]="mytime"></timepicker>
+
+		<button class="btn bth-primary" type="submit" [disabled]="form.invalid">ok</button>
+	</form>
+	{{bsValue}}
+</div>
+
+
+<!--Model :{{models |json}}
+Angular : firstName {{form.value | json}}
+Classes : {{firstName.className}}-->
