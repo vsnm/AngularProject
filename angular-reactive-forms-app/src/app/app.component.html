@@ -1,7 +1,136 @@
-<hello1 name="{{ name }}"></hello1>
+
 <p>
-  Start editing to see some magic happen :)
+  Reactive Forms
 </p>
-<p>My frist {{type}} app
-<hello1></hello1><div>{{pageHeader ? pageHeader : commonHeader}}</div> {{getFullName()}}<my-employee></my-employee>
-  <button [disabled]='isDisabled' class="basicBtn" [class]='actionBtn'>Attribute binding</button><br/><br/> <button class="boldClass blueActionBtn" [class.boldClass]='applyBoldClass' >Click here</button><div bind-innerHTML='commonHeader'></div><br/><br/><button class="basicBtn" [ngClass]="addClasses()" >NG directive Class binding here</button><div innerHTML={{badHTML}}>{{badHTML}}</div> <div><button style="color:red" [style.font-weight]="isBold ? 'bold' : 'normal'">Style Binding</button></div><div><button style="color:blue" [style.font-size.px]="fontSize">Style Binding for font size</button></div><div><button style="color:green" [ngStyle]="addStyles()">NG Style Binding </button></div><div><button (click)="callClickFunc()">Event Bindingcccc </button></div>
+
+<form [formGroup]="customerForm">
+  <div class="form-group">
+      <label for="firstName">First name (Add error on condition)</label>
+      <input minlength="3" type="text" id="firstName" class="form-control" required="required" placeholder="First Name"  formControlName="firstName">
+    
+     
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last name (Add error on condition)</label>
+      <input minlength="3" type="text" id="lastName" class="form-control" required="required" placeholder="Last Name"  formControlName="lastName">
+ 
+     
+    </div>
+     <div class="form-group">
+      <label for="emailAddress">Email Address (Add error on condition)</label>
+      <input type="text" id="emailAddress" class="form-control" required="required" placeholder="Email Address"  formControlName="emailAddress">
+      
+    
+    </div>
+      <div class="form-group">
+      <label for="sendCatalog">Send Catalog (Add error on condition)</label>
+      <input type="checkbox" id="sendCatalog" class="form-control" required="required"  formControlName="sendCatalog">   
+      
+    </div>
+      <div class="form-group">
+      <button class="btn btn-primary" type="submit" [disabled]="!customerForm.valid" [title]="customerForm.valid ? 'Save your entered data' : 'Disabled'">Save</button>
+<br/>
+       <button class="btn btn-primary" type="button" (click)="populateData()">Use Form Set Value
+       </button>
+     <br/>    
+         <button class="btn btn-primary" type="button" (click)="populatePatchData()">Use Form Patch Value</button>
+    </div>
+  </form>
+
+
+
+  <br/>Dirty :{{customerForm.dirty}}
+  <br/>Touched :{{customerForm.touched}}
+  <br/>Valid :{{customerForm.valid}}
+  <br/>Value :{{customerForm.value}}
+
+  <br/>    
+    <br/>    
+      <br/>    
+<h3> Form with Form builder</h3>
+  <form [formGroup]="customerFormBuilder">
+  <div class="form-group">
+      <label for="ffirstName">First name (Add error on condition)</label>
+      <input type="text" id="ffirstName" class="form-control" placeholder="First Name"  formControlName="ffirstName" minlength="3" [ngClass]="{'is-invalid': (customerFormBuilder.get('ffirstName').touched)}">
+    <span class="invalid-feedback" *ngIf="customerFormBuilder.get('ffirstName').errors?.required">
+Please enter first name
+	</span> 
+	<span class="invalid-feedback" *ngIf="customerFormBuilder.get('ffirstName').errors?.minlength">
+The first name requires min length 3
+	</span>    
+    </div>
+    <div class="form-group">
+      <label for="flastName">Last name (Add error on condition)</label>
+      <input minlength="3" type="text" id="flastName" class="form-control" required="required" placeholder="Last Name"  formControlName="flastName">
+ </div>
+     
+    <div formGroupName="emailGroup">
+    
+	     <div class="form-group" >
+		      <label for="femailAddress">Email Address (Add error on condition)</label>
+		      <input type="email" id="femailAddress" class="form-control" placeholder="Email Address"  formControlName="femailAddress" [ngClass]="{'is-invalid': emailMessages}">
+		      <!-- or watcher n react all validation in components -->
+		         <span class="invalid-feedback">
+					{{emailMessages}}
+				</span>
+ <!-- For watcher n react all validation in components
+ (customerFormBuilder.get('emailGroup').errors)}
+		         <span class="invalid-feedback" *ngIf="customerFormBuilder.get('emailGroup.femailAddress').errors?.required">
+						Please enter email
+				</span> 
+				<span class="invalid-feedback" *ngIf="customerFormBuilder.get('emailGroup.femailAddress').errors?.email">
+						The email requires
+				</span> -->
+	      </div>
+	     <div class="form-group">
+	      	<label for="fConfirmEmailAddress">Confirm Email Address (Add error on condition)</label>
+	     	 <input type="email" id="fConfirmEmailAddress" class="form-control" placeholder="Confirm Email Address"  formControlName="fConfirmEmailAddress" [ngClass]="{'is-invalid': (customerFormBuilder.get('emailGroup').errors)}">
+	         <span class="invalid-feedback" *ngIf="customerFormBuilder.get('emailGroup.fConfirmEmailAddress').errors?.required">
+					Please enter email
+			</span> 
+			<span class="invalid-feedback" *ngIf="customerFormBuilder.get('emailGroup').errors?.match">
+					Confirm Email doe not match email
+			</span> 
+		  
+	    
+	    </div> 
+    </div> 
+ 	<div class="form-group">
+      <label for="fphone">Phone</label>
+      <input type="text" id="fphone" class="form-control" placeholder="Phone"  formControlName="fphone" [ngClass]="{'is-invalid': (customerFormBuilder.get('fphone').valid)}">
+         <span class="invalid-feedback" *ngIf="customerFormBuilder.get('fphone').errors?.required">
+				Please enter phone number
+		</span>     
+     </div>
+     <div class="form-group">
+      <label for="fphone">Send Notification</label>
+      <div class="form-check form-check-inline">
+      	 <label class="form-check-label">
+	      <input  type="radio" class="form-check-input" value="email"  formControlName="notification">Email</label>
+		 </div>    
+   
+      <div class="form-check form-check-inline">
+      	 <label class="form-check-label">
+	      <input  type="radio" class="form-check-input" value="text"  formControlName="notification" >Text</label>
+		 </div>    
+     </div>
+	<div class="form-group">
+      <label for="fRating">Rating</label>
+      <input type="text" id="fRating" class="form-control" placeholder="Rating"  formControlName="fRating" [ngClass]="{'is-invalid': (customerFormBuilder.get('fRating').valid)}">
+         <span class="invalid-feedback" *ngIf="customerFormBuilder.get('fRating').errors?.range">
+				Please rate 
+		</span>     
+     </div>
+ 
+
+      <div class="form-group">
+      <label for="fsendCatalog">Send Catalog (Add error on condition)</label>
+      <input type="checkbox" id="fsendCatalog" class="form-control" required="required"  formControlName="fsendCatalog">   
+      
+    </div>
+      <div class="form-group">
+      <button class="btn btn-primary" type="submit" [disabled]="!customerFormBuilder.valid" [title]="customerForm.valid ? 'Save your entered data' : 'Disabled'">Save Reactive forms</button>
+
+    </div>
+  </form>
+  
