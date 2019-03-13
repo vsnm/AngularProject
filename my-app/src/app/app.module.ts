@@ -8,23 +8,44 @@ import { WelcomeComponent } from './home/welcome.component';
 import { ProductModule } from './products/product.module';
 import { HttpClientModule} from "@angular/common/http";
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './nav/nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CustomerListComponent } from './customer-list/customer-list.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,   
-    WelcomeComponent,
+    WelcomeComponent, NavComponent, DashboardComponent, CustomerListComponent,
    
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,HttpClientModule,    
      RouterModule.forRoot([     
       {path:'welcome',component:WelcomeComponent},
+        {path:'dashboard',component:DashboardComponent},
+          {path:'customer-list',component:CustomerListComponent},
       {path:'',redirectTo:'welcome',pathMatch:"full"},
       {path:'**',redirectTo:'welcome',pathMatch:"full"},
       ]),
-     ProductModule
+     ProductModule,
+     BrowserAnimationsModule,
+     LayoutModule,
+     MatToolbarModule,
+     MatButtonModule,
+     MatSidenavModule,
+     MatIconModule,
+     MatListModule,
+     MatGridListModule,
+     MatCardModule,
+     MatMenuModule,
+     MatTableModule,
+     MatPaginatorModule,
+     MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],

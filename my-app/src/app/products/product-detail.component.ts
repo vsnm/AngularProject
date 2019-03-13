@@ -21,14 +21,15 @@ product:IProduct;
   	this.pageTitle += id;
 
   	this.product = {
-  		'productID':99,
+  		'id':99,
   		'productName':'Cap',
   		'productCode':'999',
   		"releaseDate":"March 19 2018",
 		"description":"Red",
 		"price":22.3333,
 		"starRating":2,
-		"imageUrl":"./assets/iconSample.jpg"
+		"imageUrl":"./assets/iconSample.jpg",
+		"tags":['testtt']
   	}
 
 

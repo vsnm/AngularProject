@@ -7,7 +7,7 @@
 	<form #form="ngForm" novalidate="true" (submit)="submitForm(form)" >
 		<div class="form-group">
 			<label for="firstName">First name (Add error on condition)</label>
-			<input #firstName="ngModel" minlength="3" type="text" id="firstName" class="form-control" required="required" placeholder="First Name" name="firstName" [ngModel]= 'models.firstName' (ngModelChange)="models.firstName=$event">
+			<input #firstName="ngModel" minlength="3" type="text" id="firstName" class="form-control" required="required" placeholder="First Name" name="firstName" [ngModel]= 'models.firstName'(ngModelChange)="models.firstName=$event">
 			<h4>Properties Name {{firstName.invalid}}</h4>
 			<div *ngIf="firstName.invalid && firstName.dirty" class="alert alert-danger">
 				First Name is invalid

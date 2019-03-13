@@ -11,15 +11,25 @@ import { HttpModule } from "@angular/http";
 import { FormPoster } from '../services/form-poster.service';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { ProductEditComponent } from './product-edit.component';
+import { ProductEditGuard } from './product-edit.guard';
+import { ReactiveFormsModule } from '@angular/forms';
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData } from './product-data';
 
 
 @NgModule({
   imports: [  
    BsDatepickerModule.forRoot(), DatepickerModule.forRoot() , TimepickerModule.forRoot() ,
+   ReactiveFormsModule,
+       InMemoryWebApiModule.forRoot(ProductData),
      RouterModule.forChild([
       {path:'products',component:ProductListComponent},
       {path:'products/:Id',canActivate: [ProductDetailGuard],component:ProductDetailComponent},
       {path:'productDetailForm',component:ProductFormDetailComponent},
+ 	 {path:'products/:Id/edit',canDeactivate: [ProductEditGuard],component:ProductEditComponent},
+
       ]),
      SharedModule,
      HttpModule
@@ -28,6 +38,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
   	ProductListComponent,
   	ProductDetailComponent,
   	ProductFormDetailComponent,
+  	ProductEditComponent,
 	ConvertToSpacesPipe,
 
   ],
